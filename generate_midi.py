@@ -1,4 +1,5 @@
 from midiutil import MIDIFile
+import os
 
 # These should never need to change
 track = 0
@@ -18,7 +19,7 @@ def OctaveScale():
         my_midi.addNote(track, channel, note, time, duration, volume)
         time += 1 # Advance to the next beat
 
-    with open("middle_octave_scale.midi", "wb") as output_file:
+    with open(os.path.join("midi", "middle_octave_scale.midi"), "wb") as output_file:
         my_midi.writeFile(output_file)
 
 def CScale():
@@ -60,23 +61,17 @@ def CScale():
     my_midi.addNote(track, channel, 71, time, duration, volume) # B4
     my_midi.addNote(track, channel, 72, time, duration, volume) # C5
 
-    with open("middle_c_triads.midi", "wb") as output_file:
+    with open(os.path.join("midi", "middle_c_triads.midi"), "wb") as output_file:
         my_midi.writeFile(output_file)
 
 def JustC():
     my_midi = MIDIFile(1)
     my_midi.addTempo(track=0, time=0, tempo=120)
 
-    my_midi.addNote(track, channel, 60, 0, 4, volume)
-    my_midi.addNote(track, channel, 60, 5, 2, volume)
-    my_midi.addNote(track, channel, 60, 8, 1, volume)
-    my_midi.addNote(track, channel, 60, 10, 1, volume)
-    my_midi.addNote(track, channel, 60, 11, 1, volume)
-    my_midi.addNote(track, channel, 60, 12, 1, volume)
-    my_midi.addNote(track, channel, 60, 13, 1, volume)
-    my_midi.addNote(track, channel, 60, 15, 5, volume)
+    for i in range(12):
+        my_midi.addNote(track, channel, 60, i * 2, 1, volume)
 
-    with open("middle_just_c.midi", "wb") as output_file:
+    with open(os.path.join("midi", "middle_just_c.midi"), "wb") as output_file:
         my_midi.writeFile(output_file)
 
 def AllCs():
@@ -95,7 +90,7 @@ def AllCs():
         # Advance the time for the next note
         time += duration
 
-    with open("all_c.midi", "wb") as output_file:
+    with open(os.path.join("midi", "all_c.midi"), "wb") as output_file:
         my_midi.writeFile(output_file)
 
 if __name__ == '__main__':
